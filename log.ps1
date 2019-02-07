@@ -1,10 +1,10 @@
-﻿$basePath = "."
+﻿$basePath = "./last"
 
 function Set-LogBasePath {
-    param([string]$path = ".")
+    param([string]$path = "./last")
 
     if ($path -eq "") {
-        $script:basePath = "."
+        $script:basePath = "./last"
         return
     }
 

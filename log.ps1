@@ -11,7 +11,7 @@ function Set-LogBasePath {
     $script:basePath = $path
 }
 
-function Create-Dir {
+function Create-RecursiveDir {
     param([string]$path)
 
     if (Test-Path $path) {
@@ -48,7 +48,7 @@ function Rotate {
     }
 
     $destination = Get-Destination "$basePath.$($file.LastWriteTime.Date.ToString('yyyyMMdd')).log"
-    Create-Dir ([System.IO.Path]::GetDirectoryName($destination))
+    Create-RecursiveDir ([System.IO.Path]::GetDirectoryName($destination))
     Move-Item -Path $path -Destination $destination
 }
 
@@ -65,7 +65,7 @@ function Log {
     $value = "$($now.ToString('yyyy/MM/dd HH:mm:ss')) $level $singleLineMessage"
     $value
 
-    Create-Dir ([System.IO.Path]::GetDirectoryName($path))
+    Create-RecursiveDir ([System.IO.Path]::GetDirectoryName($path))
 
     $values = New-Object System.Collections.Generic.List[string]
     $values.Add($value)
